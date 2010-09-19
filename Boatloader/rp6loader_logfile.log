@@ -1,0 +1,97 @@
+RP6Loader log file
+
+SystemLogger started at: Mon Sep 20 00:16:58 CEST 2010 (1284934618905)
+JVM System Information:
+
+java.runtime.name	=	Java(TM) SE Runtime Environment
+sun.boot.library.path	=	C:\Program Files (x86)\Java\jre6\bin
+java.vm.version	=	17.0-b17
+java.vm.vendor	=	Sun Microsystems Inc.
+java.vendor.url	=	http://java.sun.com/
+path.separator	=	;
+java.vm.name	=	Java HotSpot(TM) Client VM
+file.encoding.pkg	=	sun.io
+user.country	=	GB
+sun.os.patch.level	=	
+java.vm.specification.name	=	Java Virtual Machine Specification
+user.dir	=	C:\daredevil\Boatloader
+java.runtime.version	=	1.6.0_21-b07
+java.awt.graphicsenv	=	sun.awt.Win32GraphicsEnvironment
+java.endorsed.dirs	=	C:\Program Files (x86)\Java\jre6\lib\endorsed
+os.arch	=	x86
+java.io.tmpdir	=	C:\Users\Frausig\AppData\Local\Temp\
+line.separator	=	
+
+java.vm.specification.vendor	=	Sun Microsystems Inc.
+user.variant	=	
+os.name	=	Windows 7
+sun.jnu.encoding	=	Cp1252
+java.library.path	=	.;.\lib
+java.specification.name	=	Java Platform API Specification
+java.class.version	=	50.0
+sun.management.compiler	=	HotSpot Client Compiler
+os.version	=	6.1
+user.home	=	C:\Users\Frausig
+user.timezone	=	Europe/Berlin
+java.awt.printerjob	=	sun.awt.windows.WPrinterJob
+file.encoding	=	Cp1252
+java.specification.version	=	1.6
+java.class.path	=	C:\Users\Frausig\AppData\Local\Temp\temp38.jar;C:\daredevil\Boatloader\RP6Loader_lib.jar;
+user.name	=	Frausig
+java.vm.specification.version	=	1.0
+java.home	=	C:\Program Files (x86)\Java\jre6
+sun.arch.data.model	=	32
+user.language	=	en
+java.specification.vendor	=	Sun Microsystems Inc.
+awt.toolkit	=	sun.awt.windows.WToolkit
+java.vm.info	=	mixed mode, sharing
+java.version	=	1.6.0_21
+java.ext.dirs	=	C:\Program Files (x86)\Java\jre6\lib\ext;C:\Windows\Sun\Java\lib\ext
+sun.boot.class.path	=	C:\Program Files (x86)\Java\jre6\lib\resources.jar;C:\Program Files (x86)\Java\jre6\lib\rt.jar;C:\Program Files (x86)\Java\jre6\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jre6\lib\jsse.jar;C:\Program Files (x86)\Java\jre6\lib\jce.jar;C:\Program Files (x86)\Java\jre6\lib\charsets.jar;C:\Program Files (x86)\Java\jre6\classes
+java.vendor	=	Sun Microsystems Inc.
+file.separator	=	\
+java.vendor.url.bug	=	http://java.sun.com/cgi-bin/bugreport.cgi
+sun.io.unicode.encoding	=	UnicodeLittle
+sun.cpu.endian	=	little
+sun.desktop	=	windows
+sun.cpu.isalist	=	pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86
+
+
+JVM Memory Information:
+Free: 14630712 (14287 Kb)
+Max: 259522560 (253440 Kb)
+Total: 16252928 (15872 Kb)
+
+
+Initializing...
+RP6Loader Version: 1.4c
+Last build: 28.03.2008
+Loading Configuration...
+Done!
+Global->loadLocalizedText
+Loading Board Library...
+Done!
+OS:WIN
+Initializing native communication library: JD2XX
+TERMINAL: RP6Loader Terminal
+TERMINAL:  - type ".help" for command list!
+Loading File List...
+Done!
+Global->Enabling log panel...
+RP6 Loader is ready to go.
+Message (Mon Sep 20 00:17:34 CEST 2010) : RP6LoaderGUI.actionPerformed: PREFS
+Message (Mon Sep 20 00:17:51 CEST 2010) : RP6LoaderGUI.actionPerformed: PREFS
+Message (Mon Sep 20 00:17:58 CEST 2010) : Preferences.actionPerformed: CANCEL
+Message (Mon Sep 20 00:19:38 CEST 2010) : RP6LoaderGUI.windowClosing: WINDOW_CLOSING,opposite=null,oldState=0,newState=0
+Saving File List...
+Done!
+Saving configuration...
+Done!
+
+JVM Memory Information:
+Free: 8244176 (8050 Kb)
+Max: 259522560 (253440 Kb)
+Total: 16252928 (15872 Kb)
+
+Trying to close port...
+Program terminated! (1284934778523)
