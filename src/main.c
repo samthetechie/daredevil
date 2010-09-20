@@ -1,68 +1,13 @@
-/* 
- * ****************************************************************************
- * RP6 ROBOT SYSTEM - ROBOT BASE EXAMPLES
- * ****************************************************************************
- * Example: SELFTEST PROGRAM - NEW VERSION 1.4 with Display support
- * Author(s): Dominik S. Herwald
- * ****************************************************************************
- * Description:
- *
- * Test routines for all RP6 components. 
- *
- * ----------------------------------------------------------------------
- * UPDATE v. 1.4 - 05.11.2007 - Now the Selftest Program supports Sensor 
- * Displays for Encoder Adjustment. 
- * It uses a special RP6Library Version with some additional 
- * routines for generating the Encoder Waveforms. This version is NOT
- * useable for general RP6 Programs!
- * ----------------------------------------------------------------------
- *
- * ----------------------------------------------------------------------
- * UPDATE 25.09.2007 - The input routines have been changed to work with
- * new RP6 UART Library functions. Now the User input for the advanced
- * speed tests are much easier and there are some additional features. 
- * Please look at the text instructions you see before the tests start. 
- * ----------------------------------------------------------------------
- * 
- *
- * You can compile this in two different versions. The FACTORY Version is
- * more restrictive with the voltage sensor and tests if voltage is about 
- * 7.20V. 
- * You can not guarantee this with standard accumulators of course and thus
- * you would need a laboratory power supply - which most of the home users
- * will not have. 
- *
- * --------
- *
- * Yes I know - this program has not the most beautyful code on earth... 
- * To be honest it is quite ugly ;) 
- * All the Text output is just a waste of programspace and this is 
- * intentionally to get a large program ;) 
- *
- * It is a good demonstration how big your programs can get! (and this
- * program only fills 21KB of the 30KB)
- * Consider that every single character of a String consumes one byte 
- * of program space!
- * Also look at it in the hexfile viewer in RP6Loader - nearly half the 
- * program memory is full with ASCII Text.
- *  
- *
- * ****************************************************************************
- */
- 
- 
-/*****************************************************************************/
+/*
+Title: RP6 Daredevil Robot
+Files: main.c
+Author(s): Jesper Frausig (jfrausig@gmail.com), Samuel Carlisle (samuelcarlisle@gmail.com)
+Description:
+*/
+
 // Includes:
 
 #include "..\lib\common\RP6RobotBaseLib_debug.h" 	
-
-/*****************************************************************************/
-
-// Uncomment only ONE of the following definitions:
-//#define FACTORY 
-#define HOME
-
-/*****************************************************************************/
 
 void done(void)
 {
@@ -94,8 +39,6 @@ void printUBat(uint16_t uBat)
 	writeChar('V');
 }
 
-/*****************************************************************************/
-//
 
 void startDisplayPacket(uint8_t displayID)
 {
@@ -148,9 +91,6 @@ void startDisplays(void)
 }
 
 
-/*****************************************************************************/
-//
-
 char receiveBuffer[UART_RECEIVE_BUFFER_SIZE];
 
 uint8_t getInputLine(void)
@@ -187,9 +127,6 @@ uint8_t enterX(void)
 	return receiveBuffer[0]=='x' || receiveBuffer[0]=='X';
 }
 
-/*****************************************************************************/
-//
-
 void testPowerOn(void)
 {
 	test(1);
@@ -210,9 +147,6 @@ void testPowerOn(void)
 	powerOFF();
 	done();
 }
-
-/*****************************************************************************/
-//
 
 void testLEDs(void)
 {
@@ -243,21 +177,13 @@ void testLEDs(void)
 	done();
 }
 
-/*****************************************************************************/
-//
-
 void testVoltageSensor(void)
 {
 	test(3);
 	writeString_P("\n### Voltage Sensor Test ###\n");
-#ifdef FACTORY
-	writeString_P("Please adjust the **laboratory power supply** to 7.20V!\n");
-#endif
-#ifdef HOME
 	writeString_P("Be sure that you are using good accumulators!\n");
 	writeString_P("\n### Enter \"x\" and hit return to START this test!\n\n");
 	enterX();
-#endif
 	writeString_P("Performing 10 measurements:\n");
 	uint16_t ubat;
 	uint8_t i;
@@ -268,26 +194,7 @@ void testVoltageSensor(void)
 		writeString_P(": ");
 		ubat = readADC(ADC_BAT);
 		printUBat(ubat);
-#ifdef FACTORY
-		if(ubat >= 700 && ubat <= 770)
-		{
-			writeString_P(" --> OK!\n");
-		}
-		else 
-		{
-			writeString_P("\n####### ERROR: VOLTAGE IS TOO ");
-			if(ubat < 700) 
-			{
-				writeString_P("LOW");
-			}
-			else if(ubat > 770)
-			{
-				writeString_P("HIGH");
-			}
-			writeString_P(" (should be min. 6.90V to max. 7.60V)!\n");
-		}
-#endif
-#ifdef HOME
+
 		if(ubat >= 570 && ubat <= 970)
 		{
 			writeString_P(" --> OK!\n");
@@ -305,14 +212,10 @@ void testVoltageSensor(void)
 			}
 			writeString_P(" (should be min. 5.50V to max. 9.50V)!\n");
 		}
-#endif
 		mSleep(200);
 	}
 	done();
 }
-
-/*****************************************************************************/
-//
 
 void testBumpers(void)
 {
@@ -367,9 +270,6 @@ void testBumpers(void)
 	done();
 }
 
-/*****************************************************************************/
-// 
-
 void testLightSensors(void)
 {
 	test(5);
@@ -377,10 +277,8 @@ void testLightSensors(void)
 	writeString_P("Please get yourself a small flashlight!\n");
 	writeString_P("While the test runs, move it in front of the Robot\n");
 	writeString_P("and watch if the values change accordingly!\n\n");
-#ifdef HOME
 	writeString_P("### Enter \"x\" and hit return when you are ready!\n");
 	enterX();
-#endif
 	writeString_P("### The Test is running now.\n### Enter \"x\" and hit return to STOP this test!\n\n");
 	mSleep(1000);
 	startStopwatch1();
@@ -440,8 +338,6 @@ void testLightSensors(void)
 	done();
 } 
 
-/*****************************************************************************/
-//
 
 uint8_t RC5_data;
 uint8_t RC5_error;
@@ -549,8 +445,6 @@ void testACS(void)
 	done();
 }
 
-/*****************************************************************************/
-//
 
 void testRC5(void)
 {
@@ -563,10 +457,8 @@ void testRC5(void)
 	writeString_P("Please DO NOT send anything with TV Remote Controls or similar\n");
 	writeString_P("as this will disturb the test and it will fail!\n\n");
 	writeString_P("The ACS is active and the Robot will detect obstacles that you\nmove in front of it!\n\n");
-#ifdef HOME
 	writeString_P("\n### Enter \"x\" and hit return to START this test!\n\n");
 	enterX();
-#endif
 	mSleep(500);
 	powerON();
 	setACSPwrOff();
@@ -638,8 +530,6 @@ void testRC5(void)
 	done();
 }
 
-/*****************************************************************************/
-//
 
 uint16_t tENCL_min_l_time = 0;
 uint16_t tENCL_min_h_time = 0;
@@ -738,12 +628,10 @@ void testMotorsAndEncoders(void)
 	writeString_P("Make sure both crawler tracks are FREE RUNNING! DO NOT BLOCK THEM!\n");
 	writeString_P("--> OTHERWISE THE TEST WILL FAIL!\n");
 	writeString_P("#####################################################################\n\n");
-#ifdef HOME
 	writeString_P("### Enter \"x\" and hit return when TO START this test!\n### Make sure the RP6 can not move!\n\n");
 	enterX();
 	if(receiveBuffer[0]!='x')
 		return;
-#endif
 	task_RP6System();
 
 	powerON();
@@ -807,20 +695,13 @@ void testMotorsAndEncoders(void)
 					writeString_P("####### Right: Current Sensor is defect!!! Current measurement is too low! ########\n");
 				errors++;
 			}
-#ifdef HOME
+
 			if(adcBat < 550)
 			{
 				writeString_P("####### ERROR: Supply Voltage is too low (<5.50V)! Please check power supply! #######\n");
 				errors++;
 			}
-#endif
-#ifdef FACTORY
-			if(adcBat < 650)
-			{
-				writeString_P("####### ERROR: Supply Voltage is too low (<6.50V)! Please check power supply! #######\n");
-				errors++;
-			}
-#endif
+
 			if(errors)
 				break;
 
@@ -852,20 +733,6 @@ void testMotorsAndEncoders(void)
 						writeString_P("####### ERROR Right #######\n");
 						errors++;
 					}
-#ifdef FACTORY
-					if(getMotorLeft() > (3*getLeftSpeed()))
-					{
-						writeString_P("####### ERROR: LEFT PWM Value is too high! Check motor assembly! #######\n");
-						errors++;
-						break;
-					}
-					if(getMotorRight() > (3*getRightSpeed()))
-					{
-						writeString_P("####### ERROR: LEFT PWM Value is too high! Check motor assembly! #######\n");
-						errors++;
-						break;
-					}
-#endif
 					if(errors) break;
 
 					if(state == 1)
@@ -882,24 +749,12 @@ void testMotorsAndEncoders(void)
 								state = 2;
 						}
 						speed_test -= 20;
-#ifdef FACTORY
-						if(speed_test >= 120)
-							speed_test -= 20;
-#endif
 					}
 
 					if(state == 0)
 					{
-#ifdef FACTORY
-						if(speed_test >= 160)
-							state = 1;
-						if(speed_test >= 80)
-							speed_test += 20;
-#endif
-#ifdef HOME
 						if(speed_test >= 80)
 							state = 1;
-#endif
 						speed_test += 20;
 					}
 					cnt = 0;
@@ -1570,9 +1425,9 @@ void runcommand(int command)
 			
 			
 			}
-			
+
+			//we have hit something!
 			writeString_P("moveAtSpeed(0,0) \n");
-			
 			
 			read_distance();
 			record_inarray();
@@ -1661,6 +1516,7 @@ void runcommand(int command)
 		case Stop:		
 		break;
 	}
+	task_RP6System();
 }
 
 
@@ -1682,64 +1538,34 @@ omega= intan(ydif/xdif);
 
 void commandseq(void)
 {
-	
-	switch(seqstep)
-	{
-		case 0: 
+			printarray(); //print the empty array
+
 			writeString_P("runcommand(Move_Straight) \n");
 			runcommand(Move_Straight);
-			printarray();
 
-			
-		break; 
-		case 1: 
 			writeString_P("runcommand(TurnRight) \n");
 			runcommand(TurnRight);
-			
-			
-		break; 
-		case 2: 
+
 			writeString_P("runcommand(CertainMove) \n");
 			runcommand(CertainMove);
 
-			
-		break; 
-		case 3: 
 			writeString_P("runcommand(TurnRight) \n");
 			runcommand(TurnRight); 	
-						
-		break; 
-		case 4: 	
+
 			writeString_P("runcommand(Move_Straight) \n");
 			runcommand(Move_Straight);	 	
 			
-		break; 
-		case 5: 
 			writeString_P("runcommand(TurnLeft) \n");
 			runcommand(TurnLeft); 				
 			
-		break; 
-		case 6: 
 			writeString_P("runcommand(CertainMove) \n");
 			runcommand(CertainMove);
-			
-			
-				
-			
-		break; 
-		case 7: 
+
 			writeString_P("runcommand(TurnLeft) \n");
 			runcommand(TurnLeft); 				
 			
-		break; 
-		case 8: 
 			writeString_P("runcommand(Stop) \n");
-			runcommand(Stop); 				
-			seqstep=-1;
-			
-		break; 
-	}
-	seqstep++;	
+			runcommand(Stop); 					
 	
 }
 
@@ -1748,7 +1574,6 @@ initarray();
 while(true)
 {
 	commandseq();
-	task_RP6System();
 }
 
 
@@ -1918,7 +1743,7 @@ void testEncoderDutyCycle(void)
 	done();
 }
 
-/*****************************************************************************/
+ 
 // Main:
 
 int main(void)
@@ -1934,7 +1759,7 @@ int main(void)
 	
 	IRCOMM_setRC5DataReadyHandler(receiveRC5Data);
 	
-	
+/*	
 	
 	connectToDisplays(HIGHSPEED);
 
@@ -1950,43 +1775,18 @@ int main(void)
 	createNewDisplay(16, "ENCODER LEFT", DISPLAY_WAVEFORM, " ", " ");
 	createNewDisplay(17, "ENCODER RIGHT", DISPLAY_WAVEFORM, " ", " ");
 	startDisplays();
-	
-	writeString_P("\n\nRP6 Robot Base Selftest\n\n");
-#ifdef FACTORY
-	writeString_P("\n\nATTENTION: FACTORY VERSION! \n"); 
-	writeString_P("You need to use a laboratory Power supply set to 7.20V!\n\n"); 
-#endif
-	writeString_P("#####################################################################\n");
-	writeString_P("### ATTENTION!!! DANGER!!! WARNING!!!\n");
-	writeString_P("Make sure that the RP6 CAN __NOT__ MOVE!\n");
-	writeString_P("The caterpillar tracks should NOT touch the ground!\n(hold it in your hands for example...)\n");
-	writeString_P("THE RP6 WILL START MOVING IN TEST 8! YOU CAN DAMAGE IT IF YOU DO NOT\n");
-	writeString_P("MAKE SURE THAT IT CAN __NOT__ MOVE!\n");
-	writeString_P("Make sure both crawler tracks are FREE RUNNING! DO NOT BLOCK THEM!\n");
-	writeString_P("#####################################################################\n\n");
-	writeString_P("Please enter \"x\" and hit Enter to continue!\n");
-	
-	writeString_P("Hint: This program requires a newline character (\"\\n\") at the end of\n");
-	writeString_P("all input lines!\n");
+*/	
+	writeString_P("\n\nRP6 Daredevil Robot Menu\n\n");
 	clearReceptionBuffer(); 
 	enterX();
 	clearReceptionBuffer();
 	
 	while(true)
 	{
-		// This menu is mainly a program space filler - good for serial interface (speed) testing ;)
-		// The same applies for ALL other text information in this program!
-		// All this is just to have a BIG program download that fills nearly the complete Memory.
 		writeChar('\n');
 		writeString_P("#####################################################################\n"); 
-		writeString_P("#########            RP6 Robot Base Selftest                #########\n"); 
-#ifdef FACTORY
-		writeString_P("######### FACTORY VERSION (!! 7.2V !!)  v. 1.4 - 05.11.2007 #########\n"); 
-#endif
-#ifdef HOME
-		writeString_P("######### HOME VERSION                  v. 1.4 - 05.11.2007 #########\n"); 
-#endif
-	    writeString_P("#####################################################################\n"); 
+		writeString_P("#########            RP6 Daredevil Robot Menu               #########\n"); 
+		writeString_P("#####################################################################\n"); 
 		writeString_P("#####       Main Menu         #########      Advanced Menu      #####\n"); 
 		writeString_P("#                                 #                                 #\n"); 
 		writeString_P("# 0 - Run ALL Selftests (0-8)     # s - Move at speed Test          #\n"); 
